@@ -9,8 +9,8 @@ Synthetic marker prefix: `BB_MARKER_ATLAS_HUB_2026_05_17_`
 | Alias | Role | GitHub username | Notes |
 |---|---|---|---|
 | A | Owner/Admin | mattaceolivero | Primary connected account |
-| B | Collaborator/Member |  | Secondary test account needed |
-| C | Outsider/Read-only |  | Secondary test account needed |
+| B | Collaborator/Member | acewheelie | Secondary test account |
+| C | Outsider/Read-only | logged-out/incognito | No account needed for first outsider checks |
 
 ## Repositories
 
