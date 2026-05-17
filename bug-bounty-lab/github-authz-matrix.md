@@ -25,9 +25,9 @@ Synthetic marker prefix: `BB_MARKER_ATLAS_HUB_2026_05_17_`
 | ID | Area | Setup | Expected | Observed | Decision |
 |---|---|---|---|---|---|
 | GH-AUTHZ-001 | Repo visibility transition | Private -> public -> private using owned repo | Outsider cannot access private marker after final private state |  | Pending |
-| GH-AUTHZ-002 | Collaborator removal | Remove B from `bb-private-lab` | B loses web/API/git/artifact access | Baseline confirmed: `acewheelie` could see `private-marker.md` before removal. After removal, owner-side permission API reports `acewheelie` has `none`. | No issue found in permission API; still check acewheelie web/git access |
+| GH-AUTHZ-002 | Collaborator removal | Remove B from `bb-private-lab` | B loses web/API/git/artifact access | Baseline confirmed: `acewheelie` could see `private-marker.md` before removal. After removal, owner-side permission API reports `acewheelie` has `none`; `acewheelie` sees 404 for repo and marker file. | Closed: no issue found on basic web/API permission path |
 | GH-AUTHZ-003 | GitHub App uninstall | Uninstall app from test repo | Old installation token cannot access repo after revocation window |  | Pending |
-| GH-AUTHZ-004 | Actions artifact access | Generate artifact in owned repo | Only authorized users can download artifact |  | Pending |
+| GH-AUTHZ-004 | Actions artifact access | Generate artifact in owned private repo, then remove B | Only authorized users can download artifact |  | In progress |
 | GH-AUTHZ-005 | npm ownership transfer | Transfer owned test package | Old owner loses publish/admin permissions |  | Pending |
 
 ## Evidence Fields
