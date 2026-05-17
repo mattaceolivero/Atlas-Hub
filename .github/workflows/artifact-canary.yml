@@ -1,0 +1,23 @@
+name: Artifact Canary
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  actions: read
+
+jobs:
+  artifact-canary:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Create synthetic marker artifact
+        run: |
+          mkdir -p out
+          printf '%s\n' 'BB_MARKER_ATLAS_HUB_2026_05_17_ACTIONS' > out/canary.txt
+          printf '%s\n' 'This is synthetic test data for authorized bug bounty research.' >> out/canary.txt
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: bb-artifact-canary
+          path: out/canary.txt
