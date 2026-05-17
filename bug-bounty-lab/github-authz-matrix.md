@@ -16,19 +16,19 @@ Synthetic marker prefix: `BB_MARKER_ATLAS_HUB_2026_05_17_`
 
 | Repo | Visibility | Purpose | Marker |
 |---|---|---|---|
+| bb-private-lab | Private | Private access baseline and collaborator removal | `BB_MARKER_ATLAS_HUB_2026_05_17_PRIVATE` |
 | public-repo | Public | Public access baseline | `BB_MARKER_ATLAS_HUB_2026_05_17_PUBLIC` |
-| private-repo | Private | Private access baseline | `BB_MARKER_ATLAS_HUB_2026_05_17_PRIVATE` |
 | actions-repo | Private/Public | Actions artifact/cache/log tests | `BB_MARKER_ATLAS_HUB_2026_05_17_ACTIONS` |
 
 ## Test Cases
 
 | ID | Area | Setup | Expected | Observed | Decision |
 |---|---|---|---|---|---|
-| GH-AUTHZ-001 | Repo visibility transition | Private -> public -> private using owned repo | Outsider cannot access private marker after final private state |  |  |
-| GH-AUTHZ-002 | Collaborator removal | Remove B from private repo | B loses web/API/git/artifact access |  |  |
-| GH-AUTHZ-003 | GitHub App uninstall | Uninstall app from test repo | Old installation token cannot access repo after revocation window |  |  |
-| GH-AUTHZ-004 | Actions artifact access | Generate artifact in owned repo | Only authorized users can download artifact |  |  |
-| GH-AUTHZ-005 | npm ownership transfer | Transfer owned test package | Old owner loses publish/admin permissions |  |  |
+| GH-AUTHZ-001 | Repo visibility transition | Private -> public -> private using owned repo | Outsider cannot access private marker after final private state |  | Pending |
+| GH-AUTHZ-002 | Collaborator removal | Remove B from `bb-private-lab` | B loses web/API/git/artifact access | Baseline confirmed: `acewheelie` can see `private-marker.md` before removal | In progress |
+| GH-AUTHZ-003 | GitHub App uninstall | Uninstall app from test repo | Old installation token cannot access repo after revocation window |  | Pending |
+| GH-AUTHZ-004 | Actions artifact access | Generate artifact in owned repo | Only authorized users can download artifact |  | Pending |
+| GH-AUTHZ-005 | npm ownership transfer | Transfer owned test package | Old owner loses publish/admin permissions |  | Pending |
 
 ## Evidence Fields
 
