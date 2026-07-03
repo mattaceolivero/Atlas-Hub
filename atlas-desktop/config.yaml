@@ -1,0 +1,60 @@
+# Atlas Desktop — configuration
+# Everything tunable in one place. Restart the app after editing.
+
+wake_word:
+  # Path to your "Hey Atlas" Porcupine keyword file (.ppn), generated free at
+  # https://console.picovoice.ai  (see scripts/get_wakeword.md). Platform: mac (arm64/x86).
+  keyword_path: "keywords/Hey-Atlas_en_mac.ppn"
+  sensitivity: 0.6            # 0..1 — higher = more triggers (and more false wakes)
+  # Optional: a built-in fallback keyword if you haven't made the custom one yet.
+  builtin_fallback: "jarvis"  # one of Porcupine's free built-ins; set null to disable
+
+conversation:
+  # After a wake, stay listening for follow-ups without re-waking.
+  continuous_window_seconds: 45     # silence before Atlas goes back to sleep
+  end_phrases: ["that's all", "thanks atlas", "go to sleep", "never mind atlas"]
+  barge_in: true                    # you can interrupt Atlas while it's speaking
+
+vad:
+  # Silero VAD endpointing — tuned generously because Matt pauses mid-thought.
+  speech_start_ms: 200              # sustained speech to count as "you're talking"
+  silence_end_ms: 1200              # trailing silence that means "you're done"
+  max_utterance_seconds: 60         # hard cap on a single turn
+
+stt:                                # Google Cloud Speech-to-Text — Chirp
+  provider: "google-chirp"
+  language_codes: ["en-US"]
+  model: "chirp_2"                  # Chirp 2 (Universal Speech Model), streaming
+  location: "us-central1"           # Chirp requires a regional endpoint, not "global"
+  interim_results: true             # stream partials to the HUD transcript
+
+tts:                                # Google Cloud Text-to-Speech — Chirp 3: HD
+  provider: "google-chirp"
+  voice_name: "en-US-Chirp3-HD-Charon"   # pick any Chirp3-HD voice as "Atlas's voice"
+  language_code: "en-US"
+  speaking_rate: 1.0
+  sample_rate_hz: 24000
+  stream: true                      # start speaking before the full reply is ready
+
+brain:                              # the Atlas Hub agent (this repo)
+  hub_path: ".."                    # path to the Atlas-Hub repo root (the CLAUDE.md dir)
+  model: "claude-opus-4-8"
+  permission_mode: "acceptEdits"    # headless: auto-accept the allow-listed tools
+  greeting: "Atlas online."         # spoken once on launch
+
+app_control:
+  # macOS: let Atlas open/focus apps during a request ("open Slack and my mail").
+  enabled: true
+  allow_open: ["Slack", "Mail", "Google Chrome", "Notion", "Obsidian", "Calendar"]
+
+hud:
+  enabled: true
+  port: 4173                        # http://localhost:4173  — the reactive orb
+  open_browser_on_start: true
+  theme: "reactor"                  # reactor | minimal
+  reduced_motion: false
+
+audio:
+  input_device: null                # null = system default mic
+  output_device: null               # null = system default speaker
+  input_sample_rate: 16000          # 16k for wake word + STT

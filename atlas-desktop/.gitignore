@@ -1,0 +1,11 @@
+# secrets — never commit
+.env
+# python
+__pycache__/
+*.pyc
+.venv/
+venv/
+# wake-word models (user-generated)
+keywords/*.ppn
+# google creds if placed here
+*service-account*.json

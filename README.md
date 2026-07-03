@@ -24,12 +24,20 @@ to; this repo is the working foundation and the full plan to get there.
 
 ```
 CLAUDE.md            → Atlas's operating charter (loaded every session)
-.claude/agents/      → the 6 specialists (real Claude Code subagents)
+.claude/agents/      → the 5 specialists (real Claude Code subagents)
 .claude/skills/      → reusable capabilities incl. skill-forge (self-improvement)
 .claude/settings.json→ consent tiers (auto / ask-once / never-auto)
 brain/               → Obsidian-compatible memory vault = the one place
 docs/                → the full architecture, roadmap, decisions, voice plan
+atlas-desktop/       → the hands-free "Hey Atlas" voice app (macOS, Chirp voice)
 ```
+
+## Talk to it by voice
+`atlas-desktop/` is a working, hands-free voice client: wake word **"Hey Atlas"**,
+continuous conversation (no keys held), barge-in, and a reactive orb HUD — with the whole
+collective behind it. Voice is Google **Chirp** (STT + TTS). Setup: `cd atlas-desktop &&
+bash scripts/setup_mac.sh`, fill in `.env`, then `python -m atlas_voice.main`. See
+[atlas-desktop/README.md](atlas-desktop/README.md).
 
 ## Read next
 

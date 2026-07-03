@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Atlas</title>
+<style>
+  :root { --bg:#05070d; --fg:#cfe8ff; --dim:#5b7a99; }
+  * { box-sizing: border-box; }
+  html,body { margin:0; height:100%; background:var(--bg); color:#bfe0ff;
+    font:14px/1.5 -apple-system,SFText,Segoe UI,Roboto,sans-serif; overflow:hidden; }
+  #wrap { position:fixed; inset:0; display:flex; flex-direction:column;
+    align-items:center; justify-content:center; }
+  canvas { display:block; }
+  #label { position:fixed; top:calc(50% + 150px); left:0; right:0; text-align:center;
+    letter-spacing:.35em; text-transform:uppercase; font-size:12px; color:#7fb4e6;
+    opacity:.85; }
+  #transcript { position:fixed; bottom:0; left:0; right:0; max-height:32vh; overflow:hidden;
+    padding:18px 22px; display:flex; flex-direction:column; gap:6px;
+    -webkit-mask-image:linear-gradient(to top,#000 60%,transparent); }
+  .line { opacity:0; transform:translateY(6px); animation:in .3s forwards; }
+  .you { color:#9fe0c0; } .atlas { color:#bfe0ff; } .action { color:#f0c987; font-style:italic; }
+  .role { opacity:.5; margin-right:8px; text-transform:uppercase; font-size:11px; letter-spacing:.12em; }
+  @keyframes in { to { opacity:1; transform:none; } }
+</style>
+</head>
+<body>
+<div id="wrap"><canvas id="orb" width="600" height="600"></canvas></div>
+<div id="label">asleep</div>
+<div id="transcript"></div>
+<script>
+const THEME = "__THEME__", REDUCED = __REDUCED_MOTION__;
+const cv = document.getElementById('orb'), ctx = cv.getContext('2d');
+const label = document.getElementById('label'), tr = document.getElementById('transcript');
+const DPR = Math.min(2, window.devicePixelRatio||1);
+cv.width = 600*DPR; cv.height = 600*DPR; cv.style.width='600px'; cv.style.height='600px';
+ctx.scale(DPR,DPR);
+
+const PALETTE = {
+  idle:      {core:'#1b3a5c', ring:'#2b6cb0', speed:.15, amp:2},
+  listening: {core:'#1f6f5c', ring:'#39d0a0', speed:.6,  amp:10},
+  thinking:  {core:'#3a2f6b', ring:'#8b7bff', speed:1.1, amp:6},
+  speaking:  {core:'#1d4e78', ring:'#4ab0ff', speed:.9,  amp:14},
+  acting:    {core:'#6b4a1f', ring:'#f0b24a', speed:.8,  amp:8},
+};
+let state = 'idle', t = 0, level = 0;
+
+function draw(){
+  t += 0.016;
+  const p = PALETTE[state] || PALETTE.idle;
+  const cx=300, cy=300;
+  ctx.clearRect(0,0,600,600);
+  // soft glow
+  const glow = ctx.createRadialGradient(cx,cy,20,cx,cy,220);
+  glow.addColorStop(0, p.ring+'55'); glow.addColorStop(1, '#0000');
+  ctx.fillStyle = glow; ctx.beginPath(); ctx.arc(cx,cy,220,0,7); ctx.fill();
+  // reactive rings
+  const rings = 3;
+  for(let r=0;r<rings;r++){
+    const base = 90 + r*26;
+    ctx.beginPath();
+    for(let a=0;a<=Math.PI*2+0.01;a+=0.06){
+      const wob = REDUCED?0:(Math.sin(a*6 + t*p.speed*4 + r) * (p.amp + level*22) * (r+1)/rings);
+      const rad = base + wob;
+      const x = cx + Math.cos(a)*rad, y = cy + Math.sin(a)*rad;
+      a===0?ctx.moveTo(x,y):ctx.lineTo(x,y);
+    }
+    ctx.closePath();
+    ctx.strokeStyle = p.ring + (r===0?'ee':(r===1?'99':'55'));
+    ctx.lineWidth = r===0?2.5:1.2; ctx.stroke();
+  }
+  // core
+  const cg = ctx.createRadialGradient(cx,cy,4,cx,cy,70);
+  cg.addColorStop(0,'#eaf6ff'); cg.addColorStop(.4,p.ring); cg.addColorStop(1,p.core);
+  ctx.fillStyle = cg; ctx.beginPath();
+  ctx.arc(cx,cy, 42 + (REDUCED?0:Math.sin(t*p.speed*3)*3) + level*10, 0, 7); ctx.fill();
+  level *= 0.92; // decay
+  requestAnimationFrame(draw);
+}
+draw();
+
+function setState(s){ state=s; label.textContent = ({idle:'asleep',listening:'listening',
+  thinking:'thinking',speaking:'speaking',acting:'working'})[s]||s; if(s==='speaking'||s==='listening') level=1; }
+function addLine(role,text){
+  const d=document.createElement('div'); d.className='line '+role;
+  d.innerHTML='<span class="role">'+(role==='you'?'You':role==='action'?'⚙':'Atlas')+'</span>'+text;
+  tr.appendChild(d); while(tr.children.length>8) tr.removeChild(tr.firstChild);
+}
+
+function connect(){
+  const ws = new WebSocket('ws://'+location.host+'/ws');
+  ws.onmessage = (e)=>{ const m=JSON.parse(e.data);
+    if(m.type==='state') setState(m.state);
+    else if(m.type==='transcript') addLine(m.role, m.text); };
+  ws.onclose = ()=> setTimeout(connect, 1000);
+}
+connect();
+</script>
+</body>
+</html>

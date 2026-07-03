@@ -42,12 +42,16 @@ Goal: always-on, ready for voice.
 2. Keep the brain as the shared markdown vault; keep MCP connectors.
 _Exit criteria: the hub runs without you launching a session._
 
-## Phase 5 — Voice (the Jarvis mile)
+## Phase 5 — Voice (the Jarvis mile)  🟡 v1 built
 Goal: speak to Atlas, it speaks back, on desktop and phone.
-1. Add STT→hub→TTS (push-to-talk desktop first). See `docs/VOICE.md`.
-2. Add wake word "Atlas" + a phone front-end pointing at the same hub.
-3. Turn on Chronos proactive speech for briefings.
-_Exit criteria: "Atlas, what's my day?" — out loud — just works._
+- ✅ **Hands-free desktop app built** — `atlas-desktop/`: "Hey Atlas" wake word, Silero
+  endpointing, Google **Chirp** STT + Chirp 3:HD TTS, barge-in, continuous conversation,
+  reactive orb HUD, wired to the hub via the Claude Agent SDK. (macOS.)
+- ⬜ First real-hardware run + tuning (`config.yaml`: VAD timings, wake sensitivity).
+- ⬜ macOS app-control adapter hardening (open/gather across Slack, mail, Notion).
+- ⬜ Phone front-end pointing at the same hub; Chronos proactive spoken briefings.
+_Exit criteria: "Hey Atlas, what's my day?" — out loud — just works._
+See `atlas-desktop/README.md` to run it and `docs/ATLAS-DESKTOP-PRD.md` for the full spec.
 
 ## Ongoing — self-improvement
 From Phase 2 on, the forge is live: whenever Atlas hits a missing capability, Hermes finds
