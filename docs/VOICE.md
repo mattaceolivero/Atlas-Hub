@@ -47,8 +47,15 @@ smart speaker. The repo is deliberately ordered so voice is the last, easy mile.
 
 ## Concrete next step when you're ready for voice
 1. Stand up the hub on the Agent SDK (Roadmap Phase 4).
-2. Add a voice loop: STT → hub → TTS, push-to-talk on desktop first.
-3. Add the wake word + phone front-end.
-4. Turn on Chronos proactive speech for briefings.
+2. Add a voice loop: STT → hub → TTS, toggle push-to-talk on desktop first.
+3. Add the wake word ("Hey Atlas") + continuous hands-free mode + barge-in.
+4. Add the phone front-end and turn on Chronos proactive speech for briefings.
 
 Everything above reuses what's already in this repo unchanged.
+
+## The full build spec
+This page is the *why*. The complete product spec for the hands-free desktop app — wake
+word, VAD/endpointing, barge-in, the reactive HUD visuals, OS/app control, the voice
+pipeline with recommended engines, tech stack, and phasing — lives in
+**[ATLAS-DESKTOP-PRD.md](ATLAS-DESKTOP-PRD.md)**. Start there when you're ready to build
+the body for this brain.

@@ -1,7 +1,7 @@
 # Ideal Customer Profile (ICP)
 
-Athena reads this before every lead run. Fill it in — the sharper this is, the better the
-leads. Until Matt sets it, Athena will infer from won/lost deals and flag the gap.
+Vantage reads this before every lead run. Fill it in — the sharper this is, the better the
+leads. Until Matt sets it, Vantage will infer from won/lost deals and flag the gap.
 
 ## Fit criteria
 - **Industry / vertical:** _(TBD — e.g. "SMB home services", "B2B SaaS 10–200 employees")_

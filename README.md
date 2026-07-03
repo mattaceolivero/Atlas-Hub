@@ -14,9 +14,8 @@ to; this repo is the working foundation and the full plan to get there.
 | Agent | Job |
 |-------|-----|
 | **Atlas** | The one you talk to. Orchestrates, remembers, synthesizes. |
-| **Hermes** | AI/tech news + proposals to improve the hub. |
-| **Athena** | Finds & scores leads → Notion. |
-| **Hestia** | Inbox, customer needs, friends & family. |
+| **Hermes** | The messenger — inbox, customer needs, friends & family, + AI/tech news & hub-improvement ideas. |
+| **Vantage** | Your proprietary lead-gen engine — finds & scores leads → Notion. |
 | **Hephaestus** | The forge — finds or builds missing skills. |
 | **Chronos** | Briefings, reminders, the daily rhythm. |
 | **Bard** | D&D, Magic: The Gathering, the Discord guild. |
@@ -39,6 +38,8 @@ docs/                → the full architecture, roadmap, decisions, voice plan
 - **[docs/DECISIONS.md](docs/DECISIONS.md)** — every trade-off and why.
 - **[docs/CONNECTIONS.md](docs/CONNECTIONS.md)** — how it plugs into your life (MCP).
 - **[docs/VOICE.md](docs/VOICE.md)** — the path to speaking with Atlas.
+- **[docs/ATLAS-DESKTOP-PRD.md](docs/ATLAS-DESKTOP-PRD.md)** — full spec for the hands-free
+  "Hey Atlas" desktop Jarvis (wake word, barge-in, HUD visuals, app control).
 - **[brain/README.md](brain/README.md)** — the memory vault + how to consolidate your
   scattered notes into it.
 

@@ -6,12 +6,12 @@ environment today.
 
 | Connector | Owner | What it's for | Send/spend risk | Status |
 |-----------|-------|---------------|-----------------|--------|
-| **Gmail** | Hestia | Read threads, extract customer needs, draft replies | Sending = manual only | Live |
+| **Gmail** | Hermes | Read threads, extract customer needs, draft replies | Sending = manual only | Live |
 | **Google Calendar** | Chronos | Your day, scheduling, briefing input | Create/edit = ask | Live |
 | **Google Drive** | shared | Documents, files for context | Read-only by default | Live |
-| **Granola** | Hestia / Bard | Meeting transcripts | Read-only | Live |
-| **Notion** | Athena | Leads DB, research output, shareable dashboards | Create/update = ask | Live |
-| **ZoomInfo** | Athena | Company/contact/intent data for leads | Enrich costs credits = ask | Live |
+| **Granola** | Hermes / Bard | Meeting transcripts | Read-only | Live |
+| **Notion** | Vantage | Leads DB, research output, shareable dashboards | Create/update = ask | Live |
+| **ZoomInfo** | Vantage | Company/contact/intent data for leads | Enrich costs credits = ask | Live |
 | **GitHub** | Hephaestus | The hub's own code + skill building | Push = ask | Live |
 | **open-brain** | all | Cross-session memory index | Internal | Live |
 | **Google Calendar suggest_time** | Chronos | Find meeting slots | Read-only | Live |
@@ -27,13 +27,13 @@ environment today.
 - **Ask once:** anything that writes to Notion, edits your calendar, enriches via ZoomInfo
   (credits), or pushes to GitHub.
 - **Never auto:** sending email/DMs, placing trades, spending money, adding a new
-  connector. Gmail *send* is intentionally not granted at all — Hestia drafts, you send.
+  connector. Gmail *send* is intentionally not granted at all — Hermes drafts, you send.
 
 ## Domains → connectors (your life, mapped)
 
-- **Work pipeline** → ZoomInfo + Notion + Gmail + Granola (Athena, Hestia)
-- **Relationships (friends/family)** → Gmail + `brain/10-people` (Hestia)
-- **Customer needs** → Gmail + Granola + Notion (Hestia → Athena)
+- **Work pipeline** → ZoomInfo + Notion + Gmail + Granola (Vantage, Hermes)
+- **Relationships (friends/family)** → Gmail + `brain/10-people` (Hermes)
+- **Customer needs** → Gmail + Granola + Notion (Hermes → Vantage)
 - **D&D / MTG / Discord guild** → `brain/40-games` + web research (Bard)
 - **Your day / time** → Calendar (Chronos)
 - **The hub improving itself** → GitHub + web (Hephaestus, Hermes)

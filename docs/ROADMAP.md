@@ -21,7 +21,7 @@ _Exit criteria: no important note lives outside `brain/` anymore._
 ## Phase 2 — Wire the daily loop
 Goal: the hub works for you every day, on request.
 1. Confirm connectors (Gmail, Calendar, Notion, ZoomInfo) are authorized.
-2. Run each specialist once for real: a Hestia inbox triage, an Athena lead run to Notion,
+2. Run each specialist once for real: a Hermes inbox triage, a Vantage lead run to Notion,
    a Bard session recap. Fix any friction in the agent files.
 3. Tune `.claude/settings.json` consent tiers to your comfort.
 _Exit criteria: each specialist has done one real job end-to-end._

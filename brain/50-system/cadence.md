@@ -9,7 +9,7 @@ triggers. This is the one place to edit timing. Times are Matt's local time.
 | Evening wrap | Weekdays 18:00 | Done / still open / set for tomorrow |
 | Weekly review | Sunday 18:00 | Pipeline health, cold relationships, stalled projects, wins |
 | Signals digest | Mon/Thu 08:00 | Hermes: what's new + improvement proposals |
-| Lead run | Tuesday 09:00 | Athena: fresh leads against the ICP → Notion |
+| Lead run | Tuesday 09:00 | Vantage: fresh leads against the ICP → Notion |
 
 ## To activate
 Have Atlas register these with `create_trigger` (claude-code-remote) or `CronCreate`,

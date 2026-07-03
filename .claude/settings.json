@@ -47,5 +47,5 @@
     ],
     "deny": []
   },
-  "$note": "Never auto-allow anything that sends a message outward (Gmail send is intentionally absent — Hestia drafts only) or spends money. Those stay manual by design."
+  "$note": "Never auto-allow anything that sends a message outward (Gmail send is intentionally absent — Hermes drafts only) or spends money. Those stay manual by design."
 }

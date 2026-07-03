@@ -30,4 +30,4 @@ Bard's domain. Suggested layout — create folders as your worlds grow:
 
 Continuity is the whole point: every session and event becomes a dated, wikilinked note
 so each world reads like a living wiki. People who are also friends link back to
-`[[10-people/...]]` so Hestia and Bard share one graph.
+`[[10-people/...]]` so Hermes and Bard share one graph.

@@ -15,8 +15,8 @@ the hub feel like a second brain instead of an app to check.
 
 2. **Gather in parallel** (delegate or read directly):
    - **Calendar** (Chronos → `list_events`): today's meetings, conflicts, gaps.
-   - **Inbox** (Hestia): the "Needs Matt" bucket + any customer-need signals.
-   - **Pipeline** (`brain/20-work-pipeline/` + Athena): moves, overdue follow-ups, hot leads.
+   - **Inbox** (Hermes): the "Needs Matt" bucket + any customer-need signals.
+   - **Pipeline** (`brain/20-work-pipeline/` + Vantage): moves, overdue follow-ups, hot leads.
    - **People** (`brain/10-people/`): relationships due for a touch.
    - **Signals** (Hermes digest in `brain/50-system/signals/`): only if something's worth acting on.
    - **Games** (`brain/40-games/`): sessions/events/guild items due.

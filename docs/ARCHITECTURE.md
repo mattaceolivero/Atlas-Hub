@@ -42,10 +42,10 @@ for:
                               └──────┬───────┘
               delegates ┌───────────┼───────────┬───────────┬───────────┐
                         ▼           ▼           ▼           ▼           ▼
-                   ┌────────┐  ┌────────┐  ┌────────┐  ┌──────────┐ ┌────────┐
-                   │ Hermes │  │ Athena │  │ Hestia │  │Hephaestus│ │  Bard  │
-                   │signals │  │ growth │  │relations│ │ the forge│ │ worlds │
-                   └────┬───┘  └────┬───┘  └────┬───┘  └────┬─────┘ └────┬───┘
+                   ┌────────┐  ┌────────┐  ┌──────────┐  ┌────────┐ ┌────────┐
+                   │ Hermes │  │Vantage │  │Hephaestus│  │Chronos │ │  Bard  │
+                   │messenger│ │ growth │  │ the forge│  │cadence │ │ worlds │
+                   └────┬───┘  └────┬───┘  └────┬─────┘  └────┬───┘ └────┬───┘
                         │           │           │           │           │
                         └───────────┴─────┬─────┴───────────┴───────────┘
                                           ▼
@@ -65,18 +65,19 @@ for:
 | Agent | One job | Why it's separate |
 |-------|---------|-------------------|
 | **Atlas** | Orchestrate, hold context, be the single voice | You wanted one interface; someone must own the plan and synthesis |
-| **Hermes** | AI/tech news + hub improvement proposals | Keeping current is a distinct, continuous scanning job |
-| **Athena** | Lead-gen + research → Notion | Prospecting has its own tools (ZoomInfo) and output surface (Notion) |
-| **Hestia** | Inbox, customer needs, relationships | Email + people is a full-time steward role; different tools, different care |
+| **Hermes** | Inbound: inbox & customer needs, friends/family, + AI/tech news & improvement proposals | The messenger owns everything that *arrives* — mail, people, world signals — one steward for inbound |
+| **Vantage** | Outbound growth: lead-gen + research → Notion | Your proprietary engine; prospecting has its own tools (ZoomInfo) and output surface (Notion) |
 | **Hephaestus** | Find/build missing skills | Self-improvement must be an explicit, guard-railed capability, not a side effect |
 | **Chronos** | Scheduling + briefings | Proactivity ("throughout the day") needs an owner of time |
 | **Bard** | D&D, MTG, Discord guild | Your hobby worlds need continuity; keeps personal life from bleeding into work agents |
 
-Design note on naming: you named Atlas and Hermes and described three more roles (a
-marketing/outreach researcher, an email/customer-needs watcher, and a lead-finder that
-outputs to Notion). I split those cleanly — **Athena** (leads), **Hestia** (email +
-customer needs + relationships) — and added **Hephaestus** (the self-improvement engine
-you described but didn't name), **Chronos** (the "throughout the day" proactivity), and
+Design note on naming: you named Atlas, Hermes, and Vantage. The clean split is
+**inbound vs. outbound**: **Hermes** the messenger carries everything that *comes to you*
+— your mail, customer needs, friends & family, and news from the world (he even brings
+the AI/tech signals and improvement proposals). **Vantage**, your proprietary lead-gen
+engine, owns everything that *goes out to hunt* new business → Notion. To those two we add
+**Hephaestus** (the self-improvement engine you described but didn't name), **Chronos**
+(the "throughout the day" proactivity), and
 **Bard** (your D&D/MTG/Discord life). Greek pantheon so the team reads as one family
 under the Titan.
 
@@ -98,7 +99,7 @@ truth, with `open-brain` MCP as a fast cross-session search index.**
   and point it at your existing vault.
 
 Why not Notion or a vector DB as the primary brain? Notion is great for **shareable,
-structured output** (leads, dashboards) and is used exactly there — Athena writes to it.
+structured output** (leads, dashboards) and is used exactly there — Vantage writes to it.
 But it's a poor *primary* memory: not greppable, not local, not Obsidian. A vector DB
 adds infra you'd have to run and locks your memory behind an index. Markdown-first keeps
 principle #3 (own your data) intact; `open-brain` gives the vector-like recall without
@@ -109,11 +110,11 @@ owning the truth.
 MCP connectors are the hub's senses and hands. Each is owned by the agent whose job it
 serves (full map in `docs/CONNECTIONS.md`):
 
-- **Gmail** → Hestia. Reads threads, drafts replies (never sends unprompted).
+- **Gmail** → Hermes. Reads threads, drafts replies (never sends unprompted).
 - **Google Calendar** → Chronos. Your day, scheduling, briefing input.
 - **Google Drive + Granola** → shared. Documents and meeting transcripts for context.
-- **Notion** → Athena's output; also where dashboards/views you share with others live.
-- **ZoomInfo** → Athena. Company/contact/intent data for leads.
+- **Notion** → Vantage's output; also where dashboards/views you share with others live.
+- **ZoomInfo** → Vantage. Company/contact/intent data for leads.
 - **GitHub** → Hephaestus. The hub's own code and evolution.
 - **open-brain** → shared memory index.
 - **Spotify / Robinhood / Stocks / Higgsfield** → on-demand, only when you ask.

@@ -1,6 +1,6 @@
 ---
 name: lead-scout
-description: Find, score, and deliver best-fit leads to Notion against Matt's ICP. Use when Athena runs a prospecting job or Matt asks to find leads / research prospects for outreach.
+description: Find, score, and deliver best-fit leads to Notion against Matt's ICP. Use when Vantage runs a prospecting job or Matt asks to find leads / research prospects for outreach.
 ---
 
 # Lead Scout
