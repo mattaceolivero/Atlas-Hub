@@ -2,7 +2,8 @@
 # Python 3.11+ recommended.
 
 # --- The brain: run the Atlas Hub project as a persistent agent ---
-claude-agent-sdk>=0.1.0        # Claude Agent SDK (Python). Formerly claude-code-sdk.
+# Uses your Claude Code login (no ANTHROPIC_API_KEY). Needs the `claude` CLI installed.
+claude-agent-sdk>=0.2.110      # Claude Agent SDK (Python). Formerly claude-code-sdk.
 
 # --- Wake word: "Hey Atlas" (local, on-device) ---
 pvporcupine>=3.0.0             # Picovoice Porcupine wake-word engine
@@ -12,9 +13,13 @@ pvrecorder>=1.2.0             # simple cross-platform mic recorder for the spott
 onnxruntime>=1.17.0            # runtime for Silero VAD
 silero-vad>=5.1               # robust speech endpointing (knows when you've stopped)
 
-# --- Google Chirp: speech-to-text + text-to-speech ---
-google-cloud-speech>=2.26.0   # STT — Chirp 2 (v2 streaming API)
-google-cloud-texttospeech>=2.16.0  # TTS — Chirp 3: HD voices
+# --- Voice: Gemini STT + TTS (default; key-only) ---
+google-genai>=1.0.0           # Gemini API SDK (speech-to-text + text-to-speech)
+
+# --- Voice: Google Cloud "Chirp" (OPTIONAL — only if provider=google-chirp) ---
+# Uncomment if you set up a Google Cloud project with Speech-to-Text + Text-to-Speech.
+# google-cloud-speech>=2.26.0        # STT — Chirp 2 (v2 API)
+# google-cloud-texttospeech>=2.16.0  # TTS — Chirp 3: HD voices
 
 # --- Audio I/O ---
 sounddevice>=0.4.6            # low-latency mic capture + speaker playback (PortAudio)

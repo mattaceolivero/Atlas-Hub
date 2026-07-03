@@ -35,9 +35,10 @@ atlas-desktop/       → the hands-free "Hey Atlas" voice app (macOS, Chirp voic
 ## Talk to it by voice
 `atlas-desktop/` is a working, hands-free voice client: wake word **"Hey Atlas"**,
 continuous conversation (no keys held), barge-in, and a reactive orb HUD — with the whole
-collective behind it. Voice is Google **Chirp** (STT + TTS). Setup: `cd atlas-desktop &&
-bash scripts/setup_mac.sh`, fill in `.env`, then `python -m atlas_voice.main`. See
-[atlas-desktop/README.md](atlas-desktop/README.md).
+collective behind it. Voice is **Gemini** (STT + TTS; a Google-Chirp option is a config
+flip away), and the brain runs on your **Claude Code login** — no Anthropic key. Setup:
+`cd atlas-desktop && bash scripts/setup_mac.sh`, fill in `.env` (Gemini + Picovoice keys),
+then `python -m atlas_voice.main`. See [atlas-desktop/README.md](atlas-desktop/README.md).
 
 ## Read next
 

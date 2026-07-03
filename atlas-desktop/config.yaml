@@ -21,25 +21,32 @@ vad:
   silence_end_ms: 1200              # trailing silence that means "you're done"
   max_utterance_seconds: 60         # hard cap on a single turn
 
-stt:                                # Google Cloud Speech-to-Text — Chirp
-  provider: "google-chirp"
+stt:                                # speech-to-text
+  provider: "gemini"                # "gemini" (key only) | "google-chirp" (Cloud project)
   language_codes: ["en-US"]
-  model: "chirp_2"                  # Chirp 2 (Universal Speech Model), streaming
+  # -- gemini (works with just GEMINI_API_KEY) --
+  gemini_model: "gemini-2.5-flash"
+  # -- google-chirp (needs a Google Cloud project + Speech-to-Text API + service account) --
+  chirp_model: "chirp_2"            # Chirp 2 (Universal Speech Model)
   location: "us-central1"           # Chirp requires a regional endpoint, not "global"
-  interim_results: true             # stream partials to the HUD transcript
 
-tts:                                # Google Cloud Text-to-Speech — Chirp 3: HD
-  provider: "google-chirp"
-  voice_name: "en-US-Chirp3-HD-Charon"   # pick any Chirp3-HD voice as "Atlas's voice"
+tts:                                # text-to-speech
+  provider: "gemini"                # "gemini" (key only) | "google-chirp" (Cloud project)
   language_code: "en-US"
-  speaking_rate: 1.0
   sample_rate_hz: 24000
+  speaking_rate: 1.0
   stream: true                      # start speaking before the full reply is ready
+  # -- gemini voice (prebuilt): Charon, Kore, Puck, Aoede, Fenrir, ... --
+  gemini_voice: "Charon"
+  gemini_model: "gemini-2.5-flash-preview-tts"
+  # -- google-chirp voice (when provider=google-chirp) --
+  chirp_voice_name: "en-US-Chirp3-HD-Charon"
 
 brain:                              # the Atlas Hub agent (this repo)
   hub_path: ".."                    # path to the Atlas-Hub repo root (the CLAUDE.md dir)
+  # No API key: the Claude Agent SDK uses your Claude Code login as the backend.
   model: "claude-opus-4-8"
-  permission_mode: "acceptEdits"    # headless: auto-accept the allow-listed tools
+  permission_mode: "bypassPermissions"  # headless: auto-run the allow-listed tools
   greeting: "Atlas online."         # spoken once on launch
 
 app_control:

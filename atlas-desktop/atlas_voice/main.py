@@ -26,13 +26,37 @@ from .state import Bus, State
 from .audio import MicStream, Speaker
 from .wakeword import WakeWord
 from .vad import Endpointer
-from .stt_google import GoogleChirpSTT
-from .tts_google import GoogleChirpTTS
 from .brain import Brain
 from .hud.server import HudServer
 
 FRAME_MS = 32  # 512 samples @ 16 kHz — matches Porcupine + Silero frame sizes
 SAMPLE_RATE = 16000
+
+
+def _build_stt(cfg: dict):
+    provider = cfg["stt"].get("provider", "gemini")
+    if provider == "gemini":
+        from .stt_gemini import GeminiSTT
+        return GeminiSTT(cfg["stt"].get("gemini_model", "gemini-2.5-flash"), SAMPLE_RATE)
+    if provider == "google-chirp":
+        from .stt_google import GoogleChirpSTT
+        return GoogleChirpSTT(cfg["stt"]["language_codes"], cfg["stt"]["chirp_model"],
+                              cfg["stt"]["location"], SAMPLE_RATE)
+    raise SystemExit(f"Unknown stt.provider: {provider}")
+
+
+def _build_tts(cfg: dict):
+    provider = cfg["tts"].get("provider", "gemini")
+    if provider == "gemini":
+        from .tts_gemini import GeminiTTS
+        return GeminiTTS(cfg["tts"].get("gemini_voice", "Charon"),
+                         cfg["tts"].get("gemini_model", "gemini-2.5-flash-preview-tts"),
+                         cfg["tts"]["sample_rate_hz"])
+    if provider == "google-chirp":
+        from .tts_google import GoogleChirpTTS
+        return GoogleChirpTTS(cfg["tts"]["chirp_voice_name"], cfg["tts"]["language_code"],
+                              cfg["tts"]["sample_rate_hz"], cfg["tts"]["speaking_rate"])
+    raise SystemExit(f"Unknown tts.provider: {provider}")
 
 
 def load_config() -> dict:
@@ -61,14 +85,8 @@ class AtlasVoice:
             SAMPLE_RATE, FRAME_MS,
             cfg["vad"]["speech_start_ms"], cfg["vad"]["silence_end_ms"],
         )
-        self.stt = GoogleChirpSTT(
-            cfg["stt"]["language_codes"], cfg["stt"]["model"], cfg["stt"]["location"],
-            SAMPLE_RATE,
-        )
-        self.tts = GoogleChirpTTS(
-            cfg["tts"]["voice_name"], cfg["tts"]["language_code"],
-            cfg["tts"]["sample_rate_hz"], cfg["tts"]["speaking_rate"],
-        )
+        self.stt = _build_stt(cfg)
+        self.tts = _build_tts(cfg)
         self.speaker = Speaker(sample_rate=cfg["tts"]["sample_rate_hz"],
                                device=cfg["audio"].get("output_device"))
         self.hud = HudServer(cfg["hud"]) if cfg["hud"]["enabled"] else None
@@ -200,8 +218,15 @@ class AtlasVoice:
 
 def main() -> None:
     cfg = load_config()
-    for var in ("ANTHROPIC_API_KEY", "GOOGLE_APPLICATION_CREDENTIALS",
-                "GOOGLE_CLOUD_PROJECT", "PICOVOICE_ACCESS_KEY"):
+    # The brain uses your Claude Code login (no ANTHROPIC_API_KEY needed).
+    required = ["PICOVOICE_ACCESS_KEY"]
+    uses_gemini = "gemini" in (cfg["stt"].get("provider"), cfg["tts"].get("provider"))
+    uses_chirp = "google-chirp" in (cfg["stt"].get("provider"), cfg["tts"].get("provider"))
+    if uses_gemini:
+        required.append("GEMINI_API_KEY")
+    if uses_chirp:
+        required.append("GOOGLE_APPLICATION_CREDENTIALS")
+    for var in required:
         if not os.environ.get(var):
             raise SystemExit(f"Missing {var}. Copy .env.example to .env and fill it in.")
     app = AtlasVoice(cfg)

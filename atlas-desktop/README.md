@@ -24,10 +24,12 @@ just gives that brain ears, a voice, and a face.
 ## What it uses
 - **Brain:** Claude Agent SDK running the `Atlas-Hub` project (loads `CLAUDE.md`, the
   specialists in `.claude/agents/`, skills, and permissions). Model: Opus 4.8.
+  **No Anthropic API key** — it uses your Claude Code login as the backend.
 - **Wake word:** Picovoice Porcupine — "Hey Atlas", on-device.
 - **Endpointing:** Silero VAD (tuned generously so it never cuts you off mid-thought).
-- **Speech-to-text:** **Google Chirp 2** (Cloud Speech-to-Text v2).
-- **Text-to-speech:** **Google Chirp 3: HD** (Cloud Text-to-Speech).
+- **Speech-to-text + text-to-speech:** **Gemini** (default; works with just a Gemini API
+  key). Switch `stt.provider`/`tts.provider` to `google-chirp` in `config.yaml` if you set
+  up a Google Cloud project for true Cloud Chirp.
 - **HUD:** a self-contained local web orb, live over websocket.
 
 ## Setup (macOS)
@@ -38,15 +40,14 @@ bash scripts/setup_mac.sh          # PortAudio + venv + deps + .env
 ```
 
 Then:
-1. **Fill in `.env`** (copied from `.env.example`):
-   - `ANTHROPIC_API_KEY` — the brain.
-   - `GOOGLE_APPLICATION_CREDENTIALS` + `GOOGLE_CLOUD_PROJECT` — a GCP service-account
-     JSON with **Speech-to-Text** and **Text-to-Speech** APIs enabled.
-   - `PICOVOICE_ACCESS_KEY` — free from https://console.picovoice.ai.
-2. **Make the wake word** — see `scripts/get_wakeword.md` (or just say **"Jarvis"** to
+1. **Fill in `.env`** (copied from `.env.example`) — only two secrets:
+   - `GEMINI_API_KEY` — from https://aistudio.google.com/apikey (powers voice in + out).
+   - `PICOVOICE_ACCESS_KEY` — free from https://console.picovoice.ai (wake word).
+   - *No Anthropic key* — sign in to Claude Code once instead (next step).
+2. **Sign in to Claude Code** (the brain's backend):
+   `npm install -g @anthropic-ai/claude-code` then run `claude` once and log in.
+3. **Make the wake word** — see `scripts/get_wakeword.md` (or just say **"Jarvis"** to
    start; that's the built-in fallback until you create "Hey Atlas").
-3. Make sure the **Claude Code CLI** is installed (the SDK uses it):
-   `npm install -g @anthropic-ai/claude-code`.
 
 ## Run
 
